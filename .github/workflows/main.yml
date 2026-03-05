@@ -1,0 +1,31 @@
+name: Build Windows EXE
+
+on:
+push:
+branches: [ "main" ]
+
+jobs:
+build:
+
+runs-on: windows-latest
+
+steps:
+
+- uses: actions/checkout@v4
+
+- name: Setup Node
+uses: actions/setup-node@v4
+with:
+node-version: 18
+
+- name: Install
+run: npm install
+
+- name: Build EXE
+run: npx electron-builder
+
+- name: Upload EXE
+uses: actions/upload-artifact@v4
+with:
+name: MGL-Voucher-Setup
+path: dist/
